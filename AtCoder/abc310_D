@@ -1,0 +1,51 @@
+//https://atcoder.jp/contests/abc310/tasks/abc310_d
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+const int mod=998244353;
+const int N=20;
+
+
+void solve()
+{
+
+
+
+   int n,t,m,ans=0;
+   cin>>n>>t>>m;
+   vector<int>a(m+20),b(m+20),num(n+10,0);
+
+   for(int i=1;i<=m;i++)cin>>a[i]>>b[i];
+
+
+   auto dfs= [&](auto self,int x,int cnt)->void{
+            
+          if(cnt>t+1)return;
+          if(x==n+1)
+          {
+              if(cnt!=t+1)return;
+              for(int i=1;i<=m;i++)if(num[a[i]]==num[b[i]])return;
+              ans+=1;
+              return;
+          }
+          for(int i=1;i<=cnt;i++)
+          {
+              num[x]=i;
+              self(self,x+1,max(cnt,i+1));
+              num[x]=0;
+          }
+
+   };
+   dfs(dfs,1,1);
+   cout<<ans<<endl;
+
+
+}
+int main()
+{
+    ios::sync_with_stdio(false);
+    cin.tie(0);cout.tie(0);
+    int t=1;//cin>>t;
+    solve();
+    return 0;
+}
